@@ -15,6 +15,7 @@
     "bower": "~0.7.1"
   },
   "devDependencies": {
-    "node-dev": "~0.2.10"
+    "node-dev": "~0.2.10",
+    "mocha": "~1.8.1"
   }
 }
