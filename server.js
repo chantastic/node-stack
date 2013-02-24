@@ -3,10 +3,10 @@
 
 require('coffee-script');
 
-var express = require('express'),
-    routes  = require('./routes'),
-    http    = require('http'),
-    path    = require('path');
+var express  = require('express'),
+    routes   = require('./routes'),
+    http     = require('http'),
+    path     = require('path');
 
 require('express-namespace');
 
@@ -33,7 +33,7 @@ app.configure('development', function () {
 });
 
 app.configure('test', function () {
-
+    app.set('port', 3001);
 });
 
 app.configure('production', function () {
