@@ -1,12 +1,20 @@
 doctype 5
-html
+html(ng-app='todomvc')
   head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block content
 
+    script(src='/components/angular/angular.min.js')
     script(src='/components/socket.io/dist/socket.io.min.js')
+    script(src='/scripts/app.js')
+    script(src='/scripts/controllers/todoCtrl.js')
+    script(src='/scripts/services/todoStorage.js')
+    script(src='/scripts/directives/todoFocus.js')
+    script(src='/scripts/directives/todoBlur.js')
     script(type='text/javascript')
         var socket = io.connect('http://localhost');
         socket.on('news', function (data) {
