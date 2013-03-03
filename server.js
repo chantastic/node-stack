@@ -4,13 +4,14 @@
 require('coffee-script');
 
 var express  = require('express'),
-    routes   = require('./routes'),
-    http     = require('http'),
     path     = require('path');
 
 require('express-namespace');
 
-var app = express();
+var app = express(),
+    server = require('http').createServer(app),
+    io = require('socket.io').listen(server);
+
 
 // Configuration
 
@@ -23,6 +24,7 @@ app.configure(function () {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser('GeYhuF9yitbo9vg9BFEd'));
+    app.use(express.cookieSession());
     app.use(express.session());
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
@@ -44,10 +46,11 @@ app.configure('production', function () {
 
 // Routes
 
-app.get('/', routes.index);
+require('./routes/index')(app);
+require('./routes/api')(app);
 
 // Execute
 
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
 });
