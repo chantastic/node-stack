@@ -47,7 +47,7 @@ app.configure('production', function () {
 // Routes
 
 require('./routes/index')(app);
-require('./routes/api')(app);
+// require('./routes/api')(app);
 
 // Execute
 
