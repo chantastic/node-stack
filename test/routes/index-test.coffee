@@ -3,7 +3,6 @@ assert  = require 'assert'
 request = require 'request'
 app     = require '../../server'
 
-
 describe "index", ->
     describe "GET /", ->
         body = null
@@ -16,4 +15,6 @@ describe "index", ->
                 done()
 
         it "should have a body", ->
-            assert.ok body, 'was expecting returned body be truthy'
+            assert.ok body, 'no body response was sent'
+
+        # TODO: More integration tests
