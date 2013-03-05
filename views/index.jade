@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    section(id='todoapp', ng-controller='TodoCtrl')
+    section(id='todoapp', ng-controller='TodoCtrl', ng-cloak)
         header(id='header')
             h1 todos
             form(id='todo-form', ng-submit='addTodo()')
@@ -13,12 +13,11 @@ block content
             ul(id='todo-list')
                 li(ng-repeat='todo in todos | filter:statusFilter', ng-class='{completed: todo.completed, editing: todo == editedTodo}')
                     div(class='view')
-                        input(class='toggle', type='checkbox', ng-model='todo.completed')
+                        input(class='toggle', type='checkbox', ng-click='toggleDone(todo)', ng-checked='todo.completed')
                         label(ng-dblclick='editTodo(todo)') {{todo.title}}
                         button(class='destroy', ng-click='removeTodo(todo)')
                     form(ng-submit='doneEditing(todo)')
                         input(class='edit', ng-model='todo.title', todo-blur='doneEditing(todo)', todo-focus='todo == editedTodo')
-
 
         footer(id='footer', ng-show='todos.length', ng-cloak)
             span(id='todo-count')

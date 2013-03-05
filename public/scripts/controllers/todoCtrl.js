@@ -6,8 +6,14 @@
  * - retrieves and persist the model via the todoStorage service
  * - exposes the model to the template and provides event handlers
  */
-todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage, filterFilter) {
-    var todos = $scope.todos = todoStorage.get();
+todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage, socket, filterFilter) {
+    var todoList = null,
+        todos    = [];
+
+    socket.on('todoList:changed', function (data) {
+        todoList = data;
+        todos    = $scope.todos = todoList.todos;
+    });
 
     $scope.newTodo = '';
     $scope.editedTodo = null;
@@ -16,7 +22,7 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
         $scope.remainingCount = filterFilter(todos, {completed: false}).length;
         $scope.doneCount = todos.length - $scope.remainingCount;
         $scope.allChecked = !$scope.remainingCount;
-        todoStorage.put(todos);
+        // todoStorage.put(todos);
     }, true);
 
     if ($location.path() === '') {
@@ -40,6 +46,8 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
             completed: false
         });
 
+        updateTodos();
+
         $scope.newTodo = '';
     };
 
@@ -52,21 +60,39 @@ todomvc.controller('TodoCtrl', function TodoCtrl($scope, $location, todoStorage,
         if (!todo.title) {
             $scope.removeTodo(todo);
         }
+
+        updateTodos();
     };
 
     $scope.removeTodo = function (todo) {
         todos.splice(todos.indexOf(todo), 1);
+
+        updateTodos();
     };
 
     $scope.clearDoneTodos = function () {
-        $scope.todos = todos = todos.filter(function (val) {
+        $scope.todos = todos = todoList.todos = todoList.todos.filter(function (val) {
             return !val.completed;
         });
+
+        updateTodos();
+    };
+
+    $scope.toggleDone = function (todo) {
+        todo.completed = !todo.completed;
+
+        updateTodos();
     };
 
     $scope.markAll = function (done) {
         todos.forEach(function (todo) {
             todo.completed = done;
         });
+
+        updateTodos();
     };
+
+    var updateTodos = function () {
+        socket.emit('todoList:changed', todoList);
+    }
 });

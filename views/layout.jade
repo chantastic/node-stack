@@ -8,16 +8,12 @@ html(ng-app='todomvc')
   body
     block content
 
+    // TODO: use connect-assets middleward to to concatenate these together
     script(src='/components/angular/angular.min.js')
     script(src='/components/socket.io/dist/socket.io.min.js')
     script(src='/scripts/app.js')
     script(src='/scripts/controllers/todoCtrl.js')
     script(src='/scripts/services/todoStorage.js')
+    script(src='/scripts/services/socketIO.js')
     script(src='/scripts/directives/todoFocus.js')
     script(src='/scripts/directives/todoBlur.js')
-    script(type='text/javascript')
-        var socket = io.connect('http://localhost');
-        socket.on('news', function (data) {
-            console.log(data);
-            socket.emit('my other event', { my: 'data' });
-        });
