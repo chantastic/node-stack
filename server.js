@@ -1,20 +1,19 @@
 
 // Dependencies
-
 require('coffee-script');
 
 var express  = require('express'),
+    mongoose = require('mongoose'),
     path     = require('path');
 
 require('express-namespace');
 
-var app = express(),
+var app    = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server);
+    io     = require('socket.io').listen(server);
 
 
 // Configuration
-
 app.configure(function () {
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/views');
@@ -30,8 +29,8 @@ app.configure(function () {
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
-// Environments
 
+// Environments
 app.configure('development', function () {
     app.use(express.errorHandler());
 });
@@ -44,13 +43,16 @@ app.configure('production', function () {
 
 });
 
-// Routes
 
+// Routes
 require('./routes/index')(app);
-// require('./routes/api')(app);
+
+
+// Sockets
+require('./routes/socket')(io);
+
 
 // Execute
-
 server.listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
 });
