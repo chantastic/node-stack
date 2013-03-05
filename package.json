@@ -1,6 +1,6 @@
 {
-  "name": "todomvc",
-  "version": "0.0.1-4",
+  "name": "node-stack",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "server.js",
@@ -21,7 +21,7 @@
     "request": "~2.14.0",
     "chai": "~1.5.0"
   },
-  "subdomain": "chantastic.todomvc",
+  "subdomain": "node-stack",
   "engines": {
     "node": "0.8.x"
   }
