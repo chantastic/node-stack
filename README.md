@@ -21,5 +21,5 @@ My goal is simply to see what additional considerations we need to make for hand
 - [mongoose](http://mongoosejs.com/) - ODM-style database connection
 
 ### Services
-- [nodejitsu](https://www.nodejitsu.com/) - Node.js SAAS
-- [MongoHQ](https://www.mongohq.com) - MongoDB SAAS
+- [nodejitsu](https://www.nodejitsu.com/) - Node.js PaaS
+- [MongoHQ](https://www.mongohq.com) - MongoDB PaaS
