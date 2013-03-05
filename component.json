@@ -1,6 +1,5 @@
 {
-  "name": "stint",
-  "version": "0.0.0",
+  "name": "node-stack",
   "dependencies": {
     "angular": "~1.0.5",
     "socket.io": "~0.9.11",
